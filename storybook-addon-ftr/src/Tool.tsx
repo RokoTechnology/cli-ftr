@@ -4,7 +4,7 @@ import {
   IconButton,
   Icons,
   TooltipLinkList,
-  WithTooltipPure,
+  WithTooltip,
 } from "@storybook/components";
 import React from "react";
 import { EVENT_CODE_RECEIVED, TOOL_ID } from "./constants";
@@ -81,7 +81,7 @@ export const Tool = () => {
   };
 
   return (
-    <WithTooltipPure
+    <WithTooltip
       placement="bottom"
       trigger="click"
       tooltipShown={expanded}
@@ -111,6 +111,6 @@ export const Tool = () => {
       <IconButton key={TOOL_ID} title="Send To Figma">
         <Icons icon="transfer" />
       </IconButton>
-    </WithTooltipPure>
+    </WithTooltip>
   );
 };
