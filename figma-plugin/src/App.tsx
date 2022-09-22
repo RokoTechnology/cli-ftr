@@ -1,9 +1,4 @@
-import {
-  Divider,
-  Label,
-  PrimaryButton,
-  SecondaryButton,
-} from "figma-ui-components";
+import { Divider, PrimaryButton, SecondaryButton } from "figma-ui-components";
 import React, { ChangeEvent } from "react";
 import { render as reactFigmaRender } from "react-figma";
 import mockData from "./data/mockStories.json";
@@ -43,7 +38,7 @@ const App = () => {
 
   return (
     <div>
-      <Label>Open the stories.json exported from storybook-addon-ftr</Label>
+      <div>Open the stories.json exported from storybook-addon-ftr</div>
       <input
         type="file"
         onChange={handleFilesSelected}
@@ -57,6 +52,7 @@ const App = () => {
       <PrimaryButton
         disabled={!selectedStoriesFiles || selectedStoriesFiles.length === 0}
         onClick={handleApplyPress}
+        style={{ marginRight: "8px" }}
       >
         Apply
       </PrimaryButton>
