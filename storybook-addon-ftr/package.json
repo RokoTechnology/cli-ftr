@@ -1,14 +1,13 @@
 {
-  "name": "storybook-addon-ftr",
-  "version": "0.0.0",
+  "name": "@capswan/storybook-addon-ftr",
+  "version": "0.0.1",
   "description": "Connect Storybook and Figma",
   "keywords": [
-    "storybook-addons",
     "storybook-addons"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/tizzle/storybook-addon-ftr"
+    "url": "https://github.com/Capswan/storybook-addon-ftr"
   },
   "author": "Till Hinrichs <till@eightdaysaweek.cc>",
   "license": "MIT",
