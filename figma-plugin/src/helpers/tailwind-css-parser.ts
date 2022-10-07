@@ -22,7 +22,7 @@ const arbitrarySupportedClasses = {
 };
 
 const convertToCss = (classNames: string[]) => {
-  console.log(classNames);
+  // console.log(classNames);
   let cssCode = ``;
   CheatSheet.forEach((element) => {
     element.content.forEach((content) => {

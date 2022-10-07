@@ -1,7 +1,11 @@
-import { Divider, PrimaryButton, SecondaryButton } from "figma-ui-components";
+import {
+  Divider,
+  PrimaryButton,
+  SecondaryButton,
+  Type12Pos,
+} from "figma-ui-components";
 import React, { ChangeEvent } from "react";
 import { render as reactFigmaRender } from "react-figma";
-import mockData from "./data/mockStories.json";
 import { prepareFiles } from "./helpers/prepare-files";
 import { FigmaRenderer } from "./renderer/FigmaRenderer";
 
@@ -17,28 +21,27 @@ const App = () => {
     React.useState<FileList>(null);
 
   const handleFilesSelected = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.files);
+    // console.log(event.target.files);
     setSelectedStoriesFiles(event.target.files);
   };
 
   const handleApplyPress = React.useCallback(async () => {
     const s = await prepareFiles(selectedStoriesFiles);
-    console.log("stories to render", s);
+    // console.log("stories to render", s);
     reactFigmaRender(<FigmaRenderer stories={s} />);
   }, [selectedStoriesFiles]);
 
-  const handleMockApplyPress = React.useCallback(() => {
-    reactFigmaRender(<FigmaRenderer stories={mockData} />);
-  }, []);
-
   const handleCancelPress = () => {
-    console.log("cancel... post message", parent);
+    // console.log("cancel... post message", parent);
     parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
   };
 
   return (
     <div>
-      <div>Open the stories.json exported from storybook-addon-ftr</div>
+      <Type12Pos>
+        Open the stories.json exported from storybook-addon-ftr
+      </Type12Pos>
+      <div style={{ height: "8px" }} />
       <input
         type="file"
         onChange={handleFilesSelected}
@@ -47,7 +50,7 @@ const App = () => {
         // directory=""
         // webkitdirectory=""
       />
-
+      <div style={{ height: "8px" }} />
       <Divider />
       <PrimaryButton
         disabled={!selectedStoriesFiles || selectedStoriesFiles.length === 0}

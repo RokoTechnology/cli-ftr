@@ -14,5 +14,5 @@ export interface Page {
 mockData.forEach(([s]) => {
   const $ = cheerio.load(s.html);
   const nodes = processNode($("body").children()[0], `${s.title}-${s.name}`, $);
-  console.log(nodes);
+  // console.log(nodes);
 });
