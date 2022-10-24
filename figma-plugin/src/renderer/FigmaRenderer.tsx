@@ -1,36 +1,28 @@
 import cheerio from "cheerio";
 import * as React from "react";
 import { Component, Frame, Page, Svg, Text } from "react-figma";
+import {
+  Component as ComponentType,
+  Leaf,
+  Page as PageType,
+  Story,
+} from "../../types/nodes";
 import { defaultTextStyles } from "../helpers/default-styles";
 import { getLayoutFromClasses } from "../helpers/get-layout-mode";
 import { pickTextStyles } from "../helpers/pick-text-styles";
-import {
-  Component as ProcessedComponent,
-  Leaf,
-  processNode,
-} from "../helpers/process-node";
+import { processNode } from "../helpers/process-node";
 
 export interface FigmaRendererProps {
-  stories: {
-    id: string;
-    html: string;
-    title: string;
-    name: string;
-  }[][];
+  stories: Story[];
 }
 
-export type Page = {
-  title: string;
-  components: ProcessedComponent[];
-};
-
-export type PreparedStories = { [key: string]: Page };
+export type PreparedStories = { [key: string]: PageType };
 
 const FigmaRenderer: React.FC<FigmaRendererProps> = ({ stories }) => {
   const preparedStories = React.useMemo<PreparedStories>(() => {
-    const pages: { [key: string]: Page } = {};
+    const pages: { [key: string]: PageType } = {};
 
-    stories.forEach(([s]) => {
+    stories.forEach((s) => {
       const $ = cheerio.load(s.html);
 
       const nodes = processNode({
@@ -89,7 +81,7 @@ const FigmaRenderer: React.FC<FigmaRendererProps> = ({ stories }) => {
       childrenData,
       parentStyle,
     }: {
-      childrenData: ProcessedComponent[] | Leaf;
+      childrenData: ComponentType[] | Leaf;
       parentStyle: object;
     }) => {
       let children: React.ReactNode = null;

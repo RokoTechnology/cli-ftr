@@ -1,25 +1,5 @@
+import { Component } from "../../types/nodes";
 import { getConvertedClasses as getConvertedClassesObject } from "./tailwind-object-parser";
-
-export type Component = {
-  name: string;
-  type: "text" | "tag" | "script" | "style" | "comment";
-  tag: string; // TODO better typing
-  class: string;
-  style: object;
-  children: Component[] | Leaf;
-};
-
-export type Leaf = LeafText | LeafSVG;
-
-export type LeafText = {
-  tag: "text";
-  content: string;
-};
-
-export type LeafSVG = {
-  tag: "svg";
-  content: string;
-};
 
 // TODO: Arbitrary classes like "w-[16px]" are not respected
 // TODO: padding is not respected, needs to be paddingVertical, paddingHorizontal, paddingLeft, paddingRight, paddingTop, paddingBottom

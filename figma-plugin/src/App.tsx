@@ -1,66 +1,64 @@
 import {
-  Divider,
-  PrimaryButton,
-  SecondaryButton,
-  Type12Pos,
-} from "figma-ui-components";
-import React, { ChangeEvent } from "react";
-import { render as reactFigmaRender } from "react-figma";
-import { prepareFiles } from "./helpers/prepare-files";
-import { FigmaRenderer } from "./renderer/FigmaRenderer";
+  createHistory,
+  createMemorySource,
+  LocationProvider,
+  RouteComponentProps,
+  Router,
+} from "@reach/router";
+import React from "react";
+import { getPluginData } from "./messages/plugin-data";
+import PageComponents from "./pages/components";
+import PageHome from "./pages/home";
+import { dispatch, useStoreState } from "./state";
+import "./styles/styles.css";
 
-export type Story = {
-  id: string;
-  html: string;
-};
+let source = createMemorySource("/");
+let history = createHistory(source);
 
-// parent.postMessage({ pluginMessage: { type: "render-some" } }, "*");
+const Home = (props: RouteComponentProps) => (
+  <div>
+    <PageHome />
+  </div>
+);
+
+const Components = (props: RouteComponentProps) => (
+  <div>
+    <PageComponents />
+  </div>
+);
 
 const App = () => {
-  const [selectedStoriesFiles, setSelectedStoriesFiles] =
-    React.useState<FileList>(null);
+  const components = useStoreState("components");
 
-  const handleFilesSelected = (event: ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target.files);
-    setSelectedStoriesFiles(event.target.files);
-  };
+  React.useEffect(() => {
+    // Initially we try to load the components data from the current page
+    window.onmessage = ({ data }) => {
+      if (typeof data !== "string") {
+        console.log("received message", data);
 
-  const handleApplyPress = React.useCallback(async () => {
-    const s = await prepareFiles(selectedStoriesFiles);
-    // console.log("stories to render", s);
-    reactFigmaRender(<FigmaRenderer stories={s} />);
-  }, [selectedStoriesFiles]);
+        switch (data.pluginMessage.type) {
+          case "get-plugin-data-return":
+            dispatch({
+              type: "setAllComponents",
+              payload: JSON.parse(data.pluginMessage.message),
+            });
+            break;
+        }
+      }
+    };
 
-  const handleCancelPress = () => {
-    // console.log("cancel... post message", parent);
-    parent.postMessage({ pluginMessage: { type: "cancel" } }, "*");
-  };
+    getPluginData(parent);
+  }, []);
 
   return (
-    <div>
-      <Type12Pos>
-        Open the stories.json exported from storybook-addon-ftr
-      </Type12Pos>
-      <div style={{ height: "8px" }} />
-      <input
-        type="file"
-        onChange={handleFilesSelected}
-        multiple={true}
-        accept=".json,application/json"
-        // directory=""
-        // webkitdirectory=""
-      />
-      <div style={{ height: "8px" }} />
-      <Divider />
-      <PrimaryButton
-        disabled={!selectedStoriesFiles || selectedStoriesFiles.length === 0}
-        onClick={handleApplyPress}
-        style={{ marginRight: "8px" }}
-      >
-        Apply
-      </PrimaryButton>
-      <SecondaryButton onClick={handleCancelPress}>Cancel</SecondaryButton>
-    </div>
+    <>
+      <LocationProvider history={history}>
+        <Router>
+          <Home path="/" />
+          <Components path="components" />
+        </Router>
+      </LocationProvider>
+    </>
   );
 };
 
