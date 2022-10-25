@@ -6,7 +6,9 @@ export type Story = {
 };
 
 export type Component = {
+  id: string;
   name: string;
+  section: string;
   type: "text" | "tag" | "script" | "style" | "comment";
   tag: string; // TODO better typing
   class: string;

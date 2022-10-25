@@ -22,7 +22,7 @@ const PageHome = () => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center p-2">
+    <div className="flex flex-col items-center gap-6 p-4">
       <CapSwanLogo width={192} height={43} />
       <FileSelector onPositivePress={handleNextClicked} />
     </div>

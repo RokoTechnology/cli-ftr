@@ -19,17 +19,23 @@ export interface FigmaRendererProps {
 export type PreparedStories = { [key: string]: PageType };
 
 const FigmaRenderer: React.FC<FigmaRendererProps> = ({ stories }) => {
+  console.log("figma renderer initialized");
+
   const preparedStories = React.useMemo<PreparedStories>(() => {
     const pages: { [key: string]: PageType } = {};
 
     stories.forEach((s) => {
       const $ = cheerio.load(s.html);
 
-      const nodes = processNode({
-        name: `${s.title}-${s.name}`,
-        node: $("body").children()[0],
-        $,
-      });
+      const nodes = {
+        ...processNode({
+          id: s.id,
+          node: $("body").children()[0],
+          $,
+        }),
+        section: s.title,
+        name: s.name,
+      };
 
       if (!pages[s.title]) {
         pages[s.title] = {
@@ -104,7 +110,7 @@ const FigmaRenderer: React.FC<FigmaRendererProps> = ({ stories }) => {
           </Frame>
         ));
       } else if (childrenData.tag === "svg") {
-        console.log("rendering an svg");
+        console.log("rendering an svg", childrenData.content);
         children = <Svg source={`<svg>${childrenData.content}</svg>`} />;
       } else if (childrenData.tag === "text") {
         console.log("rendering a leaf level text");

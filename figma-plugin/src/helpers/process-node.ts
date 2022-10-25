@@ -5,15 +5,17 @@ import { getConvertedClasses as getConvertedClassesObject } from "./tailwind-obj
 // TODO: padding is not respected, needs to be paddingVertical, paddingHorizontal, paddingLeft, paddingRight, paddingTop, paddingBottom
 // TODO: gap is not working
 
+type SimpleComponent = Omit<Component, "section" | "name">;
+
 export const processNode = ({
-  name,
+  id,
   node,
   $,
 }: {
-  name: string;
+  id: string;
   node: cheerio.Element;
   $: cheerio.Root;
-}): Component => {
+}): SimpleComponent => {
   const currentElement = node;
 
   const type = currentElement.type;
@@ -37,9 +39,7 @@ export const processNode = ({
     c.map((index, el) => {
       children.push(
         processNode({
-          name: `${name}-${
-            (el as cheerio.TagElement).name || "child"
-          }-${index}`,
+          id: `${name}-${(el as cheerio.TagElement).name || "child"}-${index}`,
           node: el,
           $,
         })
@@ -62,8 +62,8 @@ export const processNode = ({
 
   // console.log("children", children);
 
-  const component: Component = {
-    name,
+  const component: SimpleComponent = {
+    id,
     type,
     tag,
     class: classes,

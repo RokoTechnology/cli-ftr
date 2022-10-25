@@ -1,34 +1,58 @@
-import { Link } from "@reach/router";
-import { Checkbox, PrimaryButton, Type12PosBold } from "figma-ui-components";
-import React from "react";
-import { render } from "react-figma";
+import { PrimaryButton, Type12PosBold } from "figma-ui-components";
+import * as React from "react";
+import { render as renderToFigma } from "react-figma";
+import { Story } from "../../types/nodes";
+import HeaderSub from "../components/header-sub";
+import StoryListItem from "../components/story-list-item";
 import { FigmaRenderer } from "../renderer/FigmaRenderer";
 import { useStoreState } from "../state";
 
 const PageComponents = () => {
   const stories = useStoreState("stories");
+  const [selectedStories, setSelectedStories] = React.useState<{
+    [key: string]: Story;
+  }>({});
 
-  const handleApplyClick = () => {
-    render(<FigmaRenderer stories={stories} />);
-  };
+  const handleStoryClick = React.useCallback(
+    (id: string, value: boolean) => {
+      setSelectedStories({
+        ...selectedStories,
+        [id]: value ? stories.find((s) => s.id === id) : null,
+      });
+    },
+    [selectedStories, stories]
+  );
+
+  console.log("selectedStories on render", selectedStories);
+
+  const handleApplyClick = React.useCallback(() => {
+    console.log("selected stories", selectedStories);
+
+    renderToFigma(
+      <FigmaRenderer
+        stories={Object.values(selectedStories).filter((s) => s !== null)}
+      />
+    );
+  }, [selectedStories, stories]);
+
   return (
     <div className="w-full">
-      <div className="p-4 border-b border-b-slate-200">
-        <Link to="/">⬅</Link>
-      </div>
+      <HeaderSub backLink="/" />
       <div className="flex flex-col gap-4 p-4">
         <Type12PosBold>Components</Type12PosBold>
         <ul className="flex flex-col gap-2">
           {stories.map((story) => (
-            <li
-              key={`${story.title}-${story.name}`}
-              className="h-8 rounded-lg bg-slate-100"
-            >
-              <Checkbox name={`${story.title}-${story.name}`} />
-            </li>
+            <StoryListItem
+              key={story.id}
+              id={story.id}
+              checked={false}
+              onChange={(value) => {
+                handleStoryClick(story.id, value);
+              }}
+            />
           ))}
         </ul>
-        <PrimaryButton>Render</PrimaryButton>
+        <PrimaryButton onClick={handleApplyClick}>Render</PrimaryButton>
       </div>
     </div>
   );
