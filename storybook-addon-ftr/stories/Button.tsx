@@ -16,7 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
       className={classnames({
         "px-4 py-2 rounded": true,
         "bg-blue-500 text-white": variant === "primary",
-        "bg-gray-200 text-gray-700": variant === "secondary",
+        "bg-slate-200 text-slate-700": variant === "secondary",
       })}
     >
       {label}

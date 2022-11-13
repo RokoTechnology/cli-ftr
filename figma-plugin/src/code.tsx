@@ -14,7 +14,7 @@ figma.ui.onmessage = (msg) => {
       break;
     case "set-plugin-data":
       console.log("getting plugin data");
-      figma.currentPage.setPluginData("root", msg.message),
+      figma.root.setPluginData("root", msg.message),
         figma.ui.postMessage({
           type: "set-plugin-data-return",
           message: "plugin data set successfully",

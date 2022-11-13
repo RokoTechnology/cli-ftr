@@ -21,23 +21,23 @@ const StoryListItem: React.FC<StoryListItemProps> = ({
   };
 
   return (
-    <li className="w-full">
+    <div className="w-full">
       <button
         className="flex flex-row items-center w-full h-8 gap-2 px-3 py-1 rounded-lg bg-slate-100"
         onClick={handleClick}
       >
         <div
           className={classNames(
-            "w-6 h-3  border border-gray-700 rounded-full transition-colors duration-200",
+            "w-6 h-3  border border-slate-700 rounded-full transition-colors duration-200",
             {
               "bg-white": !isChecked,
-              "bg-gray-700": isChecked,
+              "bg-slate-700": isChecked,
             }
           )}
         >
           <div
             className={classNames(
-              "w-3 h-3 -mt-px -ml-px bg-white border border-gray-700 rounded-full transition-transform duration-200",
+              "w-3 h-3 -mt-px -ml-px bg-white border border-slate-700 rounded-full transition-transform duration-200",
               {
                 "translate-x-0": !isChecked,
                 "translate-x-3": isChecked,
@@ -47,7 +47,7 @@ const StoryListItem: React.FC<StoryListItemProps> = ({
         </div>
         <Type12Pos>{id}</Type12Pos>
       </button>
-    </li>
+    </div>
   );
 };
 
