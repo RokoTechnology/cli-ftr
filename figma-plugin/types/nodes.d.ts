@@ -32,3 +32,5 @@ export type Page = {
   title: string;
   components: Component[];
 };
+
+export type PreparedStories = { [key: string]: Page };

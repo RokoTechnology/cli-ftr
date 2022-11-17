@@ -4,23 +4,31 @@ import CapSwanLogo from "../assets/capswan-logo.svg";
 import Button from "../components/button";
 import FileSelector from "../components/file-selector";
 import MoreOptions from "../components/more-options";
-import { dispatch } from "../state";
+import { dispatch, useStoreState } from "../state";
 import { prepareFiles } from "../utils/prepare-files";
 
 const PageHome = () => {
   const navigate = useNavigate();
+
+  const loggingLevel = useStoreState("loggingLevel");
+
   const [selectedStoriesFiles, setSelectedStoriesFiles] =
     React.useState<FileList>(null);
 
   const handleFilesSelected = React.useCallback((stories: FileList) => {
-    console.log("handleFilesSelected", stories);
+    if (loggingLevel === "LOGGING_VERBOSE") {
+      console.log("handleFilesSelected", stories);
+    }
+
     setSelectedStoriesFiles(stories);
   }, []);
 
   const handleNextClicked = React.useCallback(async () => {
     const s = await prepareFiles(selectedStoriesFiles);
 
-    console.log("stories", s[0]);
+    if (loggingLevel === "LOGGING_VERBOSE") {
+      console.log("stories", s[0]);
+    }
 
     dispatch({
       type: "setStories",

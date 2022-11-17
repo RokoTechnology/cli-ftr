@@ -1,19 +1,20 @@
 import cheerio from "cheerio";
 import * as React from "react";
 import { Page } from "react-figma";
-import { Page as PageType, Story } from "../../types/nodes";
+import { Page as PageType, PreparedStories, Story } from "../../types/nodes";
+import { LoggingLevel } from "../../types/state";
 import { processNode } from "../utils/process-node";
 import { renderComponent } from "../utils/render-utils";
 
 export interface FigmaRendererProps {
   stories: Story[];
+  loggingLevel?: LoggingLevel;
 }
 
-export type PreparedStories = { [key: string]: PageType };
-
-const FigmaRenderer: React.FC<FigmaRendererProps> = ({ stories }) => {
-  console.log("figma renderer initialized");
-
+const FigmaRenderer: React.FC<FigmaRendererProps> = ({
+  stories,
+  loggingLevel = "LOGGING_NONE",
+}) => {
   const preparedStories = React.useMemo<PreparedStories>(() => {
     const pages: { [key: string]: PageType } = {};
 
@@ -40,16 +41,19 @@ const FigmaRenderer: React.FC<FigmaRendererProps> = ({ stories }) => {
       }
     });
 
+    if (loggingLevel === "LOGGING_VERBOSE") {
+      console.log("figma renderer initialized");
+      console.log("prepared stories", pages);
+    }
+
     return pages;
   }, []);
-
-  console.log("prepared stories", preparedStories);
 
   return (
     <Page isCurrent name="library">
       {Object.values(preparedStories).map((p) => (
         <React.Fragment key={p.title}>
-          {p.components.map((c) => renderComponent(c))}
+          {p.components.map((c) => renderComponent(c, loggingLevel))}
         </React.Fragment>
       ))}
     </Page>

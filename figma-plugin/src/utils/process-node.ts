@@ -1,7 +1,7 @@
 import { Component } from "../../types/nodes";
 import { getConvertedClasses as getConvertedClassesObject } from "./tailwind-object-parser";
 
-// TODO: Arbitrary classes like "w-[16px]" are not respected
+// TODO: Arbitrary classes like "w-[16px]" are currently not respected
 // TODO: padding is not respected, needs to be paddingVertical, paddingHorizontal, paddingLeft, paddingRight, paddingTop, paddingBottom
 // TODO: gap is not working
 

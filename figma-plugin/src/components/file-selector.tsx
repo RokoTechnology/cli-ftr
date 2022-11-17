@@ -6,7 +6,7 @@ export interface FileSelectorProps {
   onChange: (stories: FileList) => void;
 }
 
-const FileSelector = ({ onChange }) => {
+const FileSelector = ({ onChange }: FileSelectorProps) => {
   const [selectedFileName, setSelectedFileName] = React.useState<string>(null);
 
   const handleFilesSelected = React.useCallback(

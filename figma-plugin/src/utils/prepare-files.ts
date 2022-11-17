@@ -1,5 +1,13 @@
-export const prepareFiles = (files) => {
-  console.log("reading files", files);
+import { LoggingLevel } from "../../types/state";
+
+export const prepareFiles = (
+  files: FileList,
+  loggingLevel: LoggingLevel = "LOGGING_NONE"
+) => {
+  if (loggingLevel === "LOGGING_VERBOSE") {
+    console.log("reading files", files);
+  }
+
   let promises = [];
   for (let file of files) {
     let filePromise = new Promise((resolve) => {

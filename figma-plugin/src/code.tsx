@@ -3,7 +3,6 @@ import { setupMainThread } from "react-figma/rpc";
 figma.showUI(__html__, { width: 400, height: 600 });
 
 figma.ui.onmessage = (msg) => {
-  // console.log("received message from ui", msg);
   switch (msg.type) {
     case "get-plugin-data":
       console.log("getting plugin data");

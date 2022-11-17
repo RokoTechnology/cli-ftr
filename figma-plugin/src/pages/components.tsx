@@ -18,7 +18,9 @@ export type CategorizedStories = {
 };
 
 const PageComponents = () => {
+  const loggingLevel = useStoreState("loggingLevel");
   const stories = useStoreState("stories");
+
   const [selectedStories, setSelectedStories] = React.useState<{
     [key: string]: Story;
   }>({});
@@ -85,11 +87,14 @@ const PageComponents = () => {
   );
 
   const handleApplyClick = React.useCallback(() => {
-    console.log("selected stories", selectedStories);
+    if (loggingLevel === "LOGGING_VERBOSE") {
+      console.log("selected stories", selectedStories);
+    }
 
     renderToFigma(
       <FigmaRenderer
         stories={Object.values(selectedStories).filter((s) => s !== null)}
+        loggingLevel={loggingLevel}
       />
     );
   }, [selectedStories, stories]);

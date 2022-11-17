@@ -12,7 +12,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={classNames(
-          "h-8 px-4 font-semibold cursor-pointer text-2xs rounded-3 flex flex-row items-center justify-center shrink-0 grow",
+          "h-8 px-4 font-semibold cursor-pointer text-2xs rounded-3 flex flex-row items-center justify-center shrink-0 grow disabled:bg-basic-gray disabled:text-basic-black-3 disabled:border-basic-gray",
           className,
           {
             "bg-accent-blue border border-accent-blue text-white":

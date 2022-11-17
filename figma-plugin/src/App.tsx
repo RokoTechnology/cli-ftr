@@ -9,7 +9,7 @@ import React from "react";
 import { getPluginData } from "./messages/plugin-data";
 import PageComponents from "./pages/components";
 import PageHome from "./pages/home";
-import { dispatch } from "./state";
+import { dispatch, useStoreState } from "./state";
 import "./styles/styles.css";
 
 let source = createMemorySource("/");
@@ -28,6 +28,8 @@ const Components = (props: RouteComponentProps) => (
 );
 
 const App = () => {
+  const loggingLevel = useStoreState("loggingLevel");
+
   React.useEffect(() => {
     // Initially we try to load the components data from the current page
 
@@ -35,7 +37,9 @@ const App = () => {
       if (typeof data !== "string") {
         switch (data.pluginMessage.type) {
           case "get-plugin-data-return":
-            console.log("received sync data from figma", data);
+            if (loggingLevel === "LOGGING_VERBOSE") {
+              console.log("received sync data from figma", data);
+            }
             dispatch({
               type: "setAllComponents",
               payload: JSON.parse(data.pluginMessage.message),
