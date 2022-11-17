@@ -1,13 +1,15 @@
 import { AutoLayoutProps } from "react-figma/types";
 
-const getLayoutFromClasses = (
-  classes: string
-): {
-  layoutMode: AutoLayoutProps["layoutMode"];
-  primaryAxisSizingMode: AutoLayoutProps["primaryAxisSizingMode"];
-  counterAxisSizingMode: AutoLayoutProps["counterAxisSizingMode"];
-  // itemSpacing: number;
-} => {
+export type Layout = {
+  layoutMode?: AutoLayoutProps["layoutMode"];
+  primaryAxisSizingMode?: AutoLayoutProps["primaryAxisSizingMode"];
+  counterAxisSizingMode?: AutoLayoutProps["counterAxisSizingMode"];
+  primaryAxisAlignItems?: AutoLayoutProps["primaryAxisAlignItems"];
+  counterAxisAlignItems?: AutoLayoutProps["counterAxisAlignItems"];
+  itemSpacing?: AutoLayoutProps["itemSpacing"];
+};
+
+const getLayoutFromClasses = (classes: string): Layout => {
   const classesArray = classes.split(" ");
 
   const isFlex = classesArray.includes("flex");
@@ -18,12 +20,16 @@ const getLayoutFromClasses = (
 
   const hasGap = classes.includes("gap");
 
-  return {
+  const layout: Layout = {
     layoutMode: !isFlex ? "HORIZONTAL" : isFlexCol ? "VERTICAL" : "HORIZONTAL",
     primaryAxisSizingMode: "AUTO",
     counterAxisSizingMode: "AUTO",
     // ...{ itemSpacing: hasGap ? 16 : null },
   };
+
+  console.log("calculated layout", layout);
+
+  return layout;
 };
 
 export { getLayoutFromClasses };

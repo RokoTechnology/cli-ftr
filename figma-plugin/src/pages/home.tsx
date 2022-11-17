@@ -4,8 +4,8 @@ import CapSwanLogo from "../assets/capswan-logo.svg";
 import Button from "../components/button";
 import FileSelector from "../components/file-selector";
 import MoreOptions from "../components/more-options";
-import { prepareFiles } from "../helpers/prepare-files";
 import { dispatch } from "../state";
+import { prepareFiles } from "../utils/prepare-files";
 
 const PageHome = () => {
   const navigate = useNavigate();

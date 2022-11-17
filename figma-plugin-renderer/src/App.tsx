@@ -37,7 +37,7 @@ const App = () => {
           width: 200,
           height: 100,
           borderWidth: 10,
-          borderColor: "#29c2ff",
+          borderColor: "#cc0000",
           shadowColor: "#000000",
           shadowOpacity: 0.5,
           shadowRadius: 10,
@@ -51,11 +51,11 @@ const App = () => {
       <Svg
         source={
           svgtest2.includes("currentColor")
-            ? svgtest2.split("currentColor").join("#00cc00")
+            ? svgtest2.split("currentColor").join("#cc0000")
             : svgtest2
         }
-        width={76}
-        height={22}
+        // width={100}
+        // height={45}
         style={{}}
       />
     </Page>
