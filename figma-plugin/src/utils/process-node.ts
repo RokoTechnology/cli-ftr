@@ -51,7 +51,7 @@ export const processNode = ({
     // console.log("got an svg node");
     children = {
       tag: "svg",
-      content: $(currentElement).html(),
+      content: $(currentElement).parent().html(),
     };
   } else if ($(currentElement).html() !== "") {
     // console.log("got a leaf level text node");

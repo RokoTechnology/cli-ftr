@@ -91,7 +91,7 @@ const renderChildren = ({
       console.log("rendering an svg", childrenData.content);
     }
 
-    children = <Svg source={`<svg>${childrenData.content}</svg>`} />;
+    children = <Svg source={childrenData.content} />;
   } else if (childrenData.tag === "text") {
     /**
      * There can be just a string as a child, which equates to a leaf-level text

@@ -108,7 +108,6 @@ const PageComponents = () => {
             <DisclosureItem
               key={key}
               label={key}
-              // isSection
               isExpanded={mainDisclosureState.includes(key)}
               onClick={() => {
                 handleMainDisclosureClick(key);
@@ -119,7 +118,6 @@ const PageComponents = () => {
                     <DisclosureItem
                       key={key2}
                       label={key2}
-                      // isSection
                       isExpanded={subDisclosureState.includes(key2)}
                       onClick={() => {
                         handleSubDisclosureClick(key2);
