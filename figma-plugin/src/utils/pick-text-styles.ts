@@ -1,4 +1,4 @@
-const allowed = ["color", "fontSize"];
+const allowed = ["color", "fontSize", "fontWeight"];
 
 export const pickTextStyles = (styleObject: object) => {
   const style = {};

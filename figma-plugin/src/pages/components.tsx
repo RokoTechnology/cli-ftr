@@ -33,6 +33,8 @@ const PageComponents = () => {
     []
   );
 
+  const [selectedCount, setSelectedCount] = React.useState(0);
+
   const categorizedStories = React.useMemo(() => {
     return stories.reduce<CategorizedStories>((acc, story) => {
       const sectionParts = story.title.split("/");
@@ -82,6 +84,7 @@ const PageComponents = () => {
         ...selectedStories,
         [id]: value ? stories.find((s) => s.id === id) : null,
       });
+      setSelectedCount(value ? selectedCount + 1 : selectedCount - 1);
     },
     [selectedStories, stories]
   );
@@ -101,7 +104,11 @@ const PageComponents = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <HeaderSub title="Select Components" backLink="/" />
+      <HeaderSub
+        title="Select Components"
+        backLink="/"
+        addon={`${selectedCount} selected`}
+      />
       <div className="flex flex-col flex-grow gap-4 p-4 overflow-y-scroll">
         <Disclosure>
           {Object.entries(categorizedStories).map(([key, entry]) => (

@@ -42,7 +42,9 @@ const App = () => {
             }
             dispatch({
               type: "setAllComponents",
-              payload: JSON.parse(data.pluginMessage.message),
+              payload: data.pluginMessage.message
+                ? JSON.parse(data.pluginMessage.message)
+                : [],
             });
             break;
         }

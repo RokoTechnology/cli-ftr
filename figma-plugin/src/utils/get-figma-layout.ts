@@ -50,7 +50,8 @@ const getLayoutFromClasses = (
    * layoutGrow: number
    * This property is applicable only for direct children of auto-layout frames, ignored otherwise. Determines whether a layer should stretch along the parent’s primary axis. 0 corresponds to a fixed size and 1 corresponds to stretch.
    */
-  const _isFlexGrow = classesArray.includes("flex-grow");
+  const _isFlexGrow =
+    classesArray.includes("flex-grow") || classesArray.includes("flex-1");
 
   const layoutGrow: LayoutReturn["layoutGrow"] = _isFlexGrow ? 1 : 0;
 

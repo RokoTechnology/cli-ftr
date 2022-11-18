@@ -1,5 +1,10 @@
 import React from "react";
 import { Component, Frame, Svg, Text } from "react-figma";
+import { BlendStyleProperties } from "react-figma/styleTransformers/transformBlendProperties";
+import { LayoutStyleProperties } from "react-figma/styleTransformers/transformLayoutStyleProperties";
+import { TextStyleProperties } from "react-figma/styleTransformers/transformTextStyleProperties";
+import { StyleOf } from "react-figma/types";
+import { YogaStyleProperties } from "react-figma/yoga/YogaStyleProperties";
 import { Component as ComponentType, Leaf } from "../../types/nodes";
 import { LoggingLevel } from "../../types/state";
 
@@ -77,7 +82,8 @@ const renderChildren = ({
           {c.children &&
             renderChildren({
               childrenData: c.children,
-              parentStyle: c.style,
+              parentStyle: { ...parentStyle, ...c.style },
+              loggingLevel,
             })}
         </Frame>
       );
@@ -86,6 +92,8 @@ const renderChildren = ({
     /**
      * There can be a single SVG child
      */
+
+    // TODO: How to make fill and border colors work if those are set dynamically with e.g. "currentColor"?
 
     if (loggingLevel === "LOGGING_VERBOSE") {
       console.log("rendering an svg", childrenData.content);
@@ -97,14 +105,26 @@ const renderChildren = ({
      * There can be just a string as a child, which equates to a leaf-level text
      */
 
+    const textStyles = pickTextStyles(parentStyle);
+
+    const combinedStyle: StyleOf<
+      YogaStyleProperties &
+        LayoutStyleProperties &
+        TextStyleProperties &
+        BlendStyleProperties
+    > = {
+      ...defaultTextStyles,
+      ...textStyles,
+      fontWeight: "bold",
+    };
+
     if (loggingLevel === "LOGGING_VERBOSE") {
       console.log("rendering a leaf level text");
+      console.log("picking text styles form parent styles", combinedStyle);
     }
 
     children = (
-      <Text style={{ ...defaultTextStyles, ...pickTextStyles(parentStyle) }}>
-        {(childrenData as Leaf).content}
-      </Text>
+      <Text style={combinedStyle}>{(childrenData as Leaf).content}</Text>
     );
   }
 
