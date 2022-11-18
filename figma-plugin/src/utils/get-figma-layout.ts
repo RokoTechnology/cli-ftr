@@ -2,6 +2,7 @@ import { AutoLayoutProps, LayoutProps } from "react-figma/types";
 import { TAILWIND_INCREMENT } from "../constants";
 
 export type LayoutReturn = {
+  width?: number;
   layoutMode?: AutoLayoutProps["layoutMode"];
   primaryAxisSizingMode?: AutoLayoutProps["primaryAxisSizingMode"];
   counterAxisSizingMode?: AutoLayoutProps["counterAxisSizingMode"];
@@ -10,7 +11,6 @@ export type LayoutReturn = {
   layoutAlign?: LayoutProps["layoutAlign"];
   layoutGrow?: LayoutProps["layoutGrow"];
   itemSpacing?: number;
-  width?: number;
 };
 
 const getLayoutFromClasses = (
@@ -20,9 +20,22 @@ const getLayoutFromClasses = (
   const classesArray = classes ? classes.split(" ") : [];
 
   /**
+   * width: number [readonly]
+   * The width of the node. Use a resizing method to change this value.
+   */
+  const width =
+    componentLevel && classesArray.includes("w-full") ? 640 : undefined; // if this is the outer component frame, and it is set to w-full, we need to provide a fixed width (might collapse otherwise)
+
+  /**
    * layoutMode: 'NONE' | 'HORIZONTAL' | 'VERTICAL'
    * Determines whether this layer uses auto-layout to position its children. Defaults to "NONE".
    */
+
+  /**
+   * TODO: Test layout direction in more detail.
+   * Unsure if this is good, as HTML usually follows block pattern and aligns things vertically.
+   * Except in texts where it's more like inline-block
+   * */
 
   const _isFlex = classesArray.includes("flex");
   const _isFlexCol = classesArray.includes("flex-col");
@@ -45,7 +58,9 @@ const getLayoutFromClasses = (
    * primaryAxisSizingMode: 'FIXED' | 'AUTO'
    * Applicable only on auto-layout frames. Determines whether the primary axis has a fixed length (determined by the user) or an automatic length (determined by the layout engine).
    */
-  const primaryAxisSizingMode: LayoutReturn["primaryAxisSizingMode"] = "AUTO";
+  const primaryAxisSizingMode: LayoutReturn["primaryAxisSizingMode"] = width
+    ? "FIXED"
+    : "AUTO";
 
   /**
    * counterAxisSizingMode: 'FIXED' | 'AUTO'
@@ -90,13 +105,6 @@ const getLayoutFromClasses = (
   const itemSpacing: LayoutReturn["itemSpacing"] = _gapRegExpMatch
     ? parseInt(_gapRegExpMatch[1]) * TAILWIND_INCREMENT
     : undefined;
-
-  /**
-   * width: number [readonly]
-   * The width of the node. Use a resizing method to change this value.
-   */
-  const width =
-    componentLevel && classesArray.includes("w-full") ? 640 : undefined; // if this is the outer component frame, and it is set to w-full, we need to provide a fixed width (might collapse otherwise)
 
   return {
     layoutMode,
