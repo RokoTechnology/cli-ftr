@@ -1,4 +1,4 @@
-import { Disclosure, DisclosureItem, Type12PosBold } from "figma-ui-components";
+import { Disclosure, DisclosureItem } from "figma-ui-components";
 import * as React from "react";
 import { render as renderToFigma } from "react-figma";
 import { Story } from "../../types/nodes";
@@ -101,9 +101,8 @@ const PageComponents = () => {
 
   return (
     <div className="flex flex-col h-full">
-      <HeaderSub backLink="/" />
+      <HeaderSub title="Select Components" backLink="/" />
       <div className="flex flex-col flex-grow gap-4 p-4 overflow-y-scroll">
-        <Type12PosBold>Components</Type12PosBold>
         <Disclosure>
           {Object.entries(categorizedStories).map(([key, entry]) => (
             <DisclosureItem

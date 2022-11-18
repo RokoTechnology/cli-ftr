@@ -1,4 +1,5 @@
-import { Component } from "../../types/nodes";
+import cheerio from "cheerio";
+import { Component, Page, PreparedStories, Story } from "../../types/nodes";
 import { getConvertedClasses as getConvertedClassesObject } from "./tailwind-object-parser";
 
 // TODO: Arbitrary classes like "w-[16px]" are currently not respected
@@ -60,8 +61,6 @@ export const processNode = ({
     };
   }
 
-  // console.log("children", children);
-
   const component: SimpleComponent = {
     id,
     type,
@@ -72,4 +71,33 @@ export const processNode = ({
   };
 
   return component;
+};
+
+export const prepareStories = (stories: Story[]): PreparedStories => {
+  const pages: { [key: string]: Page } = {};
+
+  stories.forEach((s) => {
+    const $ = cheerio.load(s.html);
+
+    const nodes = {
+      ...processNode({
+        id: s.id,
+        node: $("body").children()[0],
+        $,
+      }),
+      section: s.title,
+      name: s.name,
+    };
+
+    if (!pages[s.title]) {
+      pages[s.title] = {
+        title: s.title,
+        components: [nodes],
+      };
+    } else {
+      pages[s.title].components.push(nodes);
+    }
+  });
+
+  return pages;
 };

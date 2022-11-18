@@ -10,12 +10,12 @@ export type LayoutReturn = {
   layoutAlign?: LayoutProps["layoutAlign"];
   layoutGrow?: LayoutProps["layoutGrow"];
   itemSpacing?: number;
-  width: number;
+  width?: number;
 };
 
 const getLayoutFromClasses = (
   classes: string,
-  wrapper: boolean = false
+  componentLevel: boolean = false
 ): LayoutReturn => {
   const classesArray = classes ? classes.split(" ") : [];
 
@@ -95,7 +95,8 @@ const getLayoutFromClasses = (
    * width: number [readonly]
    * The width of the node. Use a resizing method to change this value.
    */
-  const width = wrapper && classesArray.includes("w-full") ? 640 : undefined; // if this is the outer component frame, and it is set to w-full, we need to provide a fixed width (might collapse otherwise)
+  const width =
+    componentLevel && classesArray.includes("w-full") ? 640 : undefined; // if this is the outer component frame, and it is set to w-full, we need to provide a fixed width (might collapse otherwise)
 
   return {
     layoutMode,
@@ -105,7 +106,7 @@ const getLayoutFromClasses = (
     primaryAxisAlignItems,
     counterAxisAlignItems,
     itemSpacing,
-    width,
+    ...(width ? { width } : null),
   };
 };
 

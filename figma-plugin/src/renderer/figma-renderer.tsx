@@ -1,10 +1,9 @@
-import cheerio from "cheerio";
 import * as React from "react";
 import { Page } from "react-figma";
-import { Page as PageType, PreparedStories, Story } from "../../types/nodes";
+import { PreparedStories, Story } from "../../types/nodes";
 import { LoggingLevel } from "../../types/state";
-import { processNode } from "../utils/process-node";
-import { renderComponent } from "../utils/render-utils";
+import { prepareStories } from "../utils/process-node";
+import { renderComponent } from "../utils/render-component";
 
 export interface FigmaRendererProps {
   stories: Story[];
@@ -16,30 +15,7 @@ const FigmaRenderer: React.FC<FigmaRendererProps> = ({
   loggingLevel = "LOGGING_NONE",
 }) => {
   const preparedStories = React.useMemo<PreparedStories>(() => {
-    const pages: { [key: string]: PageType } = {};
-
-    stories.forEach((s) => {
-      const $ = cheerio.load(s.html);
-
-      const nodes = {
-        ...processNode({
-          id: s.id,
-          node: $("body").children()[0],
-          $,
-        }),
-        section: s.title,
-        name: s.name,
-      };
-
-      if (!pages[s.title]) {
-        pages[s.title] = {
-          title: s.title,
-          components: [nodes],
-        };
-      } else {
-        pages[s.title].components.push(nodes);
-      }
-    });
+    const pages = prepareStories(stories);
 
     if (loggingLevel === "LOGGING_VERBOSE") {
       console.log("figma renderer initialized");
