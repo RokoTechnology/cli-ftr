@@ -34,20 +34,20 @@ This plugin uses the json file that was exported using `ftr-cli` and allows you 
 1. `npm run webpack:watch` or `yarn webpack:watch`
 2. Open a blank file in Figma
 3. Open the `Components/Plugins/Widgets` view:
-   ![Step 3](../documentation/figma-01.png)
+   <img src="../documentation/figma-01.png" width="400">
 4. Switch to the `Plugins` tab:
-   ![Step 4](../documentation/figma-03.png)
+   <img src="../documentation/figma-03.png" width="400">
 5. Change the `Recents` select box to `Development`:
-   ![Step 5](../documentation/figma-04.png)
+   <img src="../documentation/figma-04.png" width="400">
 6. Click the `New` button and select `Import plugin from manifest`:
-   ![Step 6](../documentation/figma-05.png)
+   <img src="../documentation/figma-05.png" width="400">
 7. Navigate to this folder and select the `manifest.json`
 8. Click the `Run` button:
-   ![Step 8](../documentation/figma-07.png)
+   <img src="../documentation/figma-07.png" width="400">
 9. Click the `Choose a file` button and open the stories export from `ftr-cli` (or the demo file from the `demo` folder) and click `Import Stories`:
-   ![Step 9](../documentation/figma-09.png)
+   <img src="../documentation/figma-09.png" width="400">
 10. Select the stories you want to import as Components and click `Import Components`:
-    ![Step 10](../documentation/figma-10.png)
+    <img src="../documentation/figma-10.png" width="400">
 
 ## Help
 
