@@ -1,6 +1,6 @@
 # ftr-cli
 
-Figma <-> Tailwind <-> React
+`Figma` <-> `Tailwind` + `React`
 
 Scrapes stories from a running storybook instance and exports them to json. The output can be used by the `ftr-figma-plugin` to import stories (using tailwind for styling) as components to figma.
 

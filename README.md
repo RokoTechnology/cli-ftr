@@ -1,6 +1,6 @@
 # FTR
 
-`Figma` <-> `Tailwind` & `React` interoperability
+`Figma` <-> `Tailwind` + `React` interoperability
 
 ---
 

@@ -1,6 +1,6 @@
 # ftr-cli
 
-Figma <-> Tailwind <-> React
+`Figma` <-> `Tailwind` + `React`
 
 Runs a development Figma plugin that allows you to open a json file with exported storybook stories (see `ftr-cli`). The stories can then be imported as Figma components.
 
