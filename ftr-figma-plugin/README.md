@@ -14,7 +14,7 @@ FTR in its current state is highly experimental. Please don't use the figma plug
 
 ## Description
 
-This plugin uses the json file that was exported using `ftr-cli` and allows you to select stories to import as Figma components. Under the hood
+This plugin uses the json file that was exported using `ftr-cli` and allows you to select stories to import as Figma components. Under the hood this plugin uses [react-figma](https://github.com/react-figma/react-figma), which renders Figma components through jsx.
 
 ## Getting Started
 
@@ -33,6 +33,21 @@ This plugin uses the json file that was exported using `ftr-cli` and allows you 
 
 1. `npm run webpack:watch` or `yarn webpack:watch`
 2. Open a blank file in Figma
+3. Open the `Components/Plugins/Widgets` view:
+   ![Step 3](../documentation/figma-01.png|width=300)
+4. Switch to the `Plugins` tab:
+   ![Step 4](../documentation/figma-03.png|width=300)
+5. Change the `Recents` select box to `Development`:
+   ![Step 5](../documentation/figma-04.png|width=300)
+6. Click the `New` button and select `Import plugin from manifest`:
+   ![Step 6](../documentation/figma-05.png|width=300)
+7. Navigate to this folder and select the `manifest.json`
+8. Click the `Run` button:
+   ![Step 8](../documentation/figma-07.png|width=300)
+9. Click the `Choose a file` button and open the stories export from `ftr-cli` (or the demo file from the `demo` folder) and click `Import Stories`:
+   ![Step 9](../documentation/figma-09.png|width=300)
+10. Select the stories you want to import as Components and click `Import Components`:
+    ![Step 10](../documentation/figma-10.png|width=300)
 
 ## Help
 
@@ -53,7 +68,11 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgments
 
-- Based on this [great article](https://medium.com/geekculture/building-a-node-js-cli-with-typescript-packaged-and-distributed-via-homebrew-15ba2fadcb81)
+- [React-Figma](https://react-figma.dev/)
+
+## Alternatives
+
+- [story.to.design](https://story.to.design/)
 
 ---
 
