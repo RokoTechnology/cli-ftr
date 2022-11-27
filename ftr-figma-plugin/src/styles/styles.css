@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#react-ui, #react-ui > div {
+  @apply h-full;
+}
