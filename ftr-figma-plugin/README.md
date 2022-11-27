@@ -1,4 +1,4 @@
-# ftr-cli
+# ftr-figma-plugin
 
 `Figma` <-> `Tailwind` + `React`
 
