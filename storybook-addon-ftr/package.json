@@ -1,6 +1,6 @@
 {
   "name": "@capswan/storybook-addon-ftr",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Connect Storybook and Figma",
   "keywords": [
     "storybook-addons"
