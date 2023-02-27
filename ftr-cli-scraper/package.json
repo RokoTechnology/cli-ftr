@@ -1,0 +1,35 @@
+{
+  "name": "ftr-cli",
+  "version": "0.0.1",
+  "description": "Scrape a dev/prod storybook for stories and export as json",
+  "main": "index.js",
+  "bin": {
+    "ftr-cli": "./build/index.js"
+  },
+  "license": "MIT",
+  "keywords": [
+    "storybook",
+    "stories",
+    "figma",
+    "cli"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Capswan/cli-ftr"
+  },
+  "author": "Till Hinrichs",
+  "private": false,
+  "scripts": {
+    "build": "npx tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.3",
+    "@types/yargs": "^17.0.13",
+    "pkg": "^5.8.0",
+    "typescript": "^4.8.4"
+  },
+  "dependencies": {
+    "playwright-core": "^1.27.1",
+    "yargs": "^17.6.0"
+  }
+}
